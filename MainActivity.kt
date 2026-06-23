@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
-val AppAccent = Color(0xFFFF2D55)
+val AppAccent = Color(0xFF4682B4)  // цвет системы
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,35 +80,35 @@ fun RowItem(birthday: Birthday, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .clickable(onClick = onClick)
-            .padding(16.dp),
+            .padding(16.dp),  // расстояние между слотами
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
             modifier = Modifier
-                .size(40.dp)
-                .clip(RoundedCornerShape(10.dp))
+                .size(40.dp)  // размер иконки на главном экране
+                .clip(RoundedCornerShape(10.dp))  // закругление углов иконки
                 .background(AppAccent),
             contentAlignment = Alignment.Center
         ) {
-            Icon(Icons.Default.Cake, contentDescription = null, tint = Color.White)
+            Icon(Icons.Default.Cake, contentDescription = null, tint = Color.White)  // настройки иконки(изображения)
         }
-        Spacer(Modifier.width(12.dp))
+        Spacer(Modifier.width(12.dp))  // интервал между иконкой и надписями
         Column(modifier = Modifier.weight(1f)) {
-            Text(birthday.name, fontWeight = FontWeight.SemiBold)
-            Text(birthday.date, color = Color.Gray)
+            Text(birthday.name, fontWeight = FontWeight.SemiBold)  // жирность имён
+            Text(birthday.date, color = Color.Gray)  // подпись(дата)
         }
         Icon(
-            Icons.Default.CalendarMonth,
+            Icons.Default.WineBar,  // иконка, отвечающая за статус подарка
             contentDescription = null,
-            tint = if (birthday.isCongratulated) AppAccent else Color.LightGray
+            tint = if (birthday.isCongratulated) AppAccent else Color.LightGray  // цвет иконки, обозначающей некупленный подарок
         )
     }
 }
 
 @Composable
 fun InfoRow(label: String, value: String) {
-    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {
-        Text(label, color = Color.Gray)
+    Row(modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)) {  // интервал между датой рождения и статусом подарка(стр.2)
+        Text(label, color = Color.Gray)  // цвет надписи "Дата рождения"
         Spacer(Modifier.weight(1f))
         Text(value)
     }
@@ -122,32 +122,32 @@ fun DetailScreen(birthday: Birthday, onBack: () -> Unit) {
                 title = { Text(birthday.name) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+                        Icon(Icons.Default.ThumbDownOffAlt, contentDescription = "Назад")  // иконка стрелочки возвращения на главную страницу
                     }
                 }
             )
         }
     ) { padding ->
         Column(
-            modifier = Modifier.padding(padding).fillMaxWidth().padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.padding(padding).fillMaxWidth().padding(24.dp),  // отступы от краев страницы
+            horizontalAlignment = Alignment.CenterHorizontally  // расположение на странице
         ) {
             Box(
                 modifier = Modifier.size(76.dp).clip(RoundedCornerShape(22.dp)).background(AppAccent),
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center // параметры иконки на стр.2
             ) {
-                Icon(Icons.Default.Cake, contentDescription = null, tint = Color.White, modifier = Modifier.size(36.dp))
+                Icon(Icons.Default.Cake, contentDescription = null, tint = Color.White, modifier = Modifier.size(36.dp))  // параметры изображения внутри иконки
             }
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(24.dp))  // отступ между иконкой и текстом
             InfoRow("Дата рождения", birthday.date)
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(8.dp))  // отступ между строками
             Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Text("Подарок куплен")
                 Spacer(Modifier.weight(1f))
                 Icon(
-                    Icons.Default.CalendarMonth,
+                    Icons.Default.WineBar,  // иконка, отвечающая за статус подарка
                     contentDescription = null,
-                    tint = if (birthday.isCongratulated) AppAccent else Color.LightGray
+                    tint = if (birthday.isCongratulated) AppAccent else Color.LightGray  // цвет иконки, отвечающей за статус подарка
                 )
             }
         }
